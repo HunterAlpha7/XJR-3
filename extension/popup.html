@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XJR-3 Paper Tracker</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css"> <!-- Custom CSS for the popup -->
+</head>
+<body>
+  <div class="container mt-3">
+    <div class="d-flex justify-content-center mb-3">
+      <img src="../public/logo.svg" alt="XJR-3 Logo" width="48" height="48">
+      <h1 class="ml-2 h4">XJR-3 Dashboard</h1>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section" class="card p-3 mb-3">
+      <h2 class="h5 card-title">Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <div id="login-message" class="mt-2 text-danger"></div>
+      </form>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" style="display: none;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5">Your Papers</h2>
+        <button id="logout-button" class="btn btn-sm btn-outline-secondary">Logout</button>
+      </div>
+
+      <!-- Search and Filter -->
+      <div class="card p-3 mb-3">
+        <h3 class="h6 card-title">Search Papers</h3>
+        <form id="search-form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="search-keyword" placeholder="Search by title, author, abstract">
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" class="form-control" id="search-user" placeholder="Filter by user">
+            </div>
+            <div class="col">
+              <input type="number" class="form-control" id="search-publish-year" placeholder="Filter by year">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-info btn-block mt-2">Search</button>
+        </form>
+      </div>
+
+      <!-- Papers Table -->
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Publish Year</th>
+              <th>Read By</th>
+              <th>Date & Time</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="papers-table-body">
+            <!-- Paper rows will be injected here by popup.js -->
+          </tbody>
+        </table>
+        <div id="papers-message" class="text-muted text-center">No papers found.</div>
+      </div>
+
+      <div class="text-center mt-3">
+        <button id="load-more-button" class="btn btn-secondary" style="display: none;">Load More</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal fade" id="readConfirmationModal" tabindex="-1" aria-labelledby="readConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="readConfirmationModalLabel">Paper Already Read</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>This paper has already been read:</p>
+          <div id="existing-reads-info"></div>
+          <p class="mt-3">What would you like to do?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-info" id="viewNotesButton">View All Notes</button>
+          <button type="button" class="btn btn-success" id="confirmMarkReadButton">Mark Read Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

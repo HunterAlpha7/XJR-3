@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "XJR-3 Paper Tracker",
+  "version": "1.0",
+  "description": "Tracks research papers for the XJR-3 team.",
+  "icons": {
+    "16": "../public/logo.svg",
+    "48": "../public/logo.svg",
+    "128": "../public/logo.svg"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "../public/logo.svg",
+      "48": "../public/logo.svg"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

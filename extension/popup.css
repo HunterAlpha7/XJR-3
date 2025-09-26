@@ -1,0 +1,12 @@
+.read-status-read {
+  color: green;
+  font-weight: bold;
+}
+
+.read-status-unread {
+  color: red;
+}
+
+body {
+  width: 400px; /* Adjust as needed */
+}
