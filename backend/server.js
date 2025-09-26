@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const winston = require('winston');
+const Config = require('./models/config'); // Import Config model
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,7 +25,15 @@ const logger = winston.createLogger({
 
 // MongoDB Connection
 mongoose.connect(MONGO_URI, { dbName: 'xjr3' })
-  .then(() => logger.info('MongoDB connected...'))
+  .then(async () => {
+    logger.info('MongoDB connected...');
+    // Ensure default config exists
+    const configCount = await Config.countDocuments();
+    if (configCount === 0) {
+      await Config.create({ preventDuplicateReads: false });
+      logger.info('Default config created.');
+    }
+  })
   .catch(err => logger.error(err));
 
 // Middleware
@@ -55,8 +64,8 @@ app.use((req, res, next) => {
 });
 
 // Mount Routes (Placeholder for now)
-// app.use('/api/papers', authenticateJWT, require('./routes/papers'));
-// app.use('/api/auth', require('./routes/auth'));
+app.use('/api/papers', require('./routes/paper'));
+app.use('/api/admin', require('./routes/admin'));
 
 app.get('/', (req, res) => {
   res.send('XJR-3 Backend API');
