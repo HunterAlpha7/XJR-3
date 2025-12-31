@@ -71,4 +71,11 @@ app.get('/', (req, res) => {
   res.send('XJR-3 Backend API');
 });
 
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+module.exports = app;
+
+// Start the server only if this file is run directly
+if (require.main === module) {
+  mongoose.connection.on('connected', () => {
+    app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+  });
+}
